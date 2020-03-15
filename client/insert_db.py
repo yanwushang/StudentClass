@@ -68,3 +68,10 @@ def NEWStudentSelfDate(userid,dbConn):
     newselfdate=(""" INSERT INTO student (user_id ,class_id) values (%s,%s)""")
     dbConnCursor.execute(newselfdate,(userid,newclass))
     dbConn.commit()
+
+def DELselfclass(userid,dbConn):
+    delnum=[input('请输入要删除的课程编号')]
+    for num in delnum:
+        
+
+

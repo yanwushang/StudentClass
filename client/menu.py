@@ -14,8 +14,8 @@ def MenuAction(userid,dbConn):
         insert_db.ALLlesson(dbConn)
         insert_db.NEWStudentSelfDate(userid,dbConn)
     elif student_chois=='4':
-    #调用查看学生课程的函数 
+        insert_db.GetStudentSelfData(userid,dbConn)
         delnum=[input('请输入要删除的课程编号')]
-        print(delnum)
+        
     else:
         print('您的输入有误请重新输入')
