@@ -1,0 +1,67 @@
+# （1）每个节点或者是黑色，或者是红色。
+# （2）根节点是黑色。
+# （3）每个叶子节点（NIL）是黑色。 [注意：这里叶子节点，是指为空(NIL或NULL)的叶子节点！]
+# （4）如果一个节点是红色的，则它的子节点必须是黑色的。
+# （5）从一个节点到该节点的子孙节点的所有路径上包含相同数目的黑节点。
+
+# 遍历链表或者数组可以直接遍历，但是遍历二叉树有4种遍历的方法，因为数据，链表、队列都是线性结构，二叉树是非线性结构
+# 一、深度优先遍历
+# 1：前序遍历   输出顺序是根节点、左子树、右子树，先把左边的树遍历完再遍历右边的
+# 2：中序遍历   输出顺序是左子树、根节点、右子树，从左边最下边开始遍历，
+
+
+class TreeNode:
+    def __init__(self,data):
+        self.data=data
+        self.left=None
+        self.right=None
+
+# 构建二叉树输入序列
+def create_binary_tree(input_list=[]):  #输入构建二叉树的列表
+    if input_list is None or len(input_list)==0:# 判断列表是否为空
+        return None
+    data=input_list.pop(0)#删除掉为0的数值
+    if data is None:# 判断列表是否为空
+        return None
+    node=TreeNode(data)
+    node.left=create_binary_tree(input_list)
+    node.right=create_binary_tree(input_list)
+    print(node.data)
+    return node
+
+# 前序遍历
+def pre_order_traversal(node):
+    if node is None:
+        return
+    print(node.data)
+    pre_order_traversal(node.left)
+    pre_order_traversal(node.right)
+    return node
+# 中序遍历
+def in_order_traversal(node):
+    if node is None:
+        return
+    in_order_traversal(node.left)
+    print(node.data)
+    in_order_traversal(node.right)
+    return node
+# 后序遍历
+def post_order_traversal(node):
+    if node is None:
+        return
+    post_order_traversal(node.left)
+    post_order_traversal(node.right)
+    print(node.data)
+    return node
+
+my_input_list=list([3,2,9,None,None,10,None,None,8,None,4])
+root=create_binary_tree(my_input_list)
+
+print('前序遍历：')
+pre_order_traversal(root)
+print('中序遍历:')
+in_order_traversal(root)
+print('后续遍历：')
+post_order_traversal(root)
+
+
