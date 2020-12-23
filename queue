@@ -1,0 +1,81 @@
+
+# 先进先出的队列 进队put(arg),取get(),操作中，进程退出队列清空，
+# 先进先出队是  queue.Queue 模块
+# 后进先出队是  queue.LifoQueue 模块
+# 优先队列是  queue.PriorityQueue 模块
+# 双栈队列是 queue.deque 模块
+
+# 方法
+# 一、put(): 放数据，默认有block=True和timeout两个参数，当block=True 时，写入是阻塞式的，阻塞时间由timeout决定
+# block=False 时，时非阻塞式的，当队列满时会抛出 exception Queue.Full的异常
+# 二、get():取数据 Queue.get([block[,timeout]]) 获取队列，
+# 三、empty(): 队列为空返回True
+# 四、qsize(): 显示队列真实存在的元素长度
+# 五、maxsize: 最大支持的队列长度，没有括号
+# 六、join():实际上意味着等到队列为空，再执行别的操作
+# 七、task_done():在完成一项工作之后，Queue.task_done()函数向任务已经完成的队列发送一个信号
+# 八、full():如果队列满了，返回True,反之False
+
+import queue
+
+# # 先进先出队
+# q=queue.Queue(5)#创建一个长度为5的先进先出队列，如果不设置长度，默认为无限长
+# print(q.maxsize)# 打印出队列的最大长度
+# q.put(123)#入队
+# q.put(456)
+# q.put(789)
+# q.put(100)
+# q.put(111)
+# q.put(233)
+# print(q.get())
+# print(q.get())
+# # 这样打印的时候只能打印出MAXSIZE,取得数据时阻塞得，因为长度是5，插入了6个，
+
+# # 后进先出队
+# q1=queue.LifoQueue()#不设长度，默认无限长
+# print(q1.maxsize)
+# q1.put(12)
+# q1.put(34)
+# print(q1.get())
+
+# 优先队列： 优先队列入队时一个元组，（优先级，数据） 优先级越小越优先
+# q2 = queue.PriorityQueue()
+# q2.put((3,'aaaaa'))
+# q2.put((0,'bbbbb'))
+# q2.put((1,'ccccc'))
+# q2.put((3,'ddddd'))
+# print(q2.get())
+# print(q2.get())
+#
+# # 双栈队列
+# q3 = queue.deque()
+# q3.append(123)
+# q3.append(456)
+# q3.appendleft(780)
+# print(q3)
+# print(q3.pop())#右边出队
+# print(q3.popleft())#左边出队
+
+# 简单得写法
+from queue import Queue, LifoQueue, PriorityQueue
+
+# 先进先出队列
+q = Queue(maxsize=5)
+# 后进先出队列
+lq = LifoQueue(maxsize=6)
+# 优先级队列
+pq = PriorityQueue(maxsize=5)
+
+for i in range(5):
+    q.put(i)
+    lq.put(i)
+    pq.put(i)
+
+print('先进先出队列：',q.queue,'是否为空：',q.empty(),'多大',q.qsize(),'是否满',q.full() )
+print("后进先出队列：%s;是否为空：%s;多大,%s;是否满,%s" % (lq.queue, lq.empty(), lq.qsize(), lq.full()))
+print("优先级队列：%s;是否为空：%s,多大,%s;是否满,%s" % (pq.queue, pq.empty(), pq.qsize(), pq.full()))
+
+print(q.get(), lq.get(), pq.get())
+
+print("先进先出队列：%s;是否为空：%s；多大,%s;是否满,%s" % (q.queue, q.empty(), q.qsize(), q.full()))
+print("后进先出队列：%s;是否为空：%s;多大,%s;是否满,%s" % (lq.queue, lq.empty(), lq.qsize(), lq.full()))
